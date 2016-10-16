@@ -8,6 +8,7 @@ import com.stashcity.www.stashedphotos.FeedImageView;
 import com.stashcity.www.stashedphotos.ApplicationController;
 import com.stashcity.www.stashedphotos.R;
 import com.stashcity.www.stashedphotos.model.FeedItem;
+import com.stashcity.www.stashedphotos.volley.VolleyNetworkCalls;
 
 import java.util.List;
 
@@ -17,10 +18,12 @@ import android.text.Html;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -31,6 +34,7 @@ public class FeedListAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private List<FeedItem> feedItems;
     ImageLoader imageLoader = ApplicationController.getInstance().getImageLoader();
+    VolleyNetworkCalls VNC;
 
     public FeedListAdapter(Activity activity, List<FeedItem> feedItems) {
         this.activity = activity;
@@ -75,7 +79,7 @@ public class FeedListAdapter extends BaseAdapter {
         FeedImageView feedImageView = (FeedImageView) convertView
                 .findViewById(R.id.feedImage1);
 
-        FeedItem item = feedItems.get(position);
+        final FeedItem item = feedItems.get(position);
 
         name.setText(item.getName());
 
@@ -127,6 +131,20 @@ public class FeedListAdapter extends BaseAdapter {
         } else {
             feedImageView.setVisibility(View.GONE);
         }
+
+        ImageButton BtnImg = (ImageButton) convertView.findViewById(R.id.ButtonLove);
+        BtnImg.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Log.e("loveBTN",":"+item.getId());
+                VNC =new VolleyNetworkCalls();
+                VNC.LikePost(item.getId());
+
+            }
+        });
+
+
 
         return convertView;
     }

@@ -20,6 +20,7 @@
             <include
                 android:id="@+id/toolbar"
                 layout="@layout/toolbar" />
+
         </LinearLayout>
 
         <FrameLayout
@@ -28,11 +29,6 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <ListView
-            android:id="@+id/list"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:divider="@null" />
     </LinearLayout>
 
 

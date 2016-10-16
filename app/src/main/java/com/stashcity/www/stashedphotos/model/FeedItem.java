@@ -7,20 +7,29 @@ package com.stashcity.www.stashedphotos.model;
 public class FeedItem {
     private int id;
     private String name, status, image, profilePic, timeStamp, url;
+    private Image imageobj;
+
+    public Image getImageobj() {
+        return imageobj;
+    }
+
+    public void setImageobj(Image imageobj) {
+        this.imageobj = imageobj;
+    }
 
     public FeedItem() {
     }
 
-    public FeedItem(int id, String name, String image, String status,
-                    String profilePic, String timeStamp, String url) {
+    public FeedItem(Image imageobj) {
         super();
-        this.id = id;
-        this.name = name;
-        this.image = image;
-        this.status = status;
-        this.profilePic = profilePic;
-        this.timeStamp = timeStamp;
-        this.url = url;
+        this.id = imageobj.getPhotograpId();
+        this.name = imageobj.getName();
+        this.image = imageobj.getUrl();
+        this.status = imageobj.getName();
+        this.profilePic = imageobj.getThumbnailUrl();
+        this.timeStamp = "1403375851930";
+        this.url = imageobj.getUrl();
+        this.imageobj=imageobj;
     }
 
     public int getId() {
