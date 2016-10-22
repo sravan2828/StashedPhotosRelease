@@ -94,7 +94,7 @@ public class HomeFragment extends Fragment {
                 public void onResponse(JSONObject response) {
                     VolleyLog.d(TAG, "Response: " + response.toString());
                     Log.e("responce", response.toString());
-                    if (response != null) {
+                    if (null != response) {
                         parseJsonFeed(response);
                     }
                 }
@@ -117,10 +117,6 @@ public class HomeFragment extends Fragment {
         return rootView;
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-    }
 
     @Override
     public void onDetach() {
