@@ -132,7 +132,7 @@ public class FeedListAdapter extends BaseAdapter {
             feedImageView.setVisibility(View.GONE);
         }
 
-        ImageButton BtnImg = (ImageButton) convertView.findViewById(R.id.ButtonLove);
+        ImageButton BtnImg = (ImageButton) convertView.findViewById(R.id.btnLike);
         BtnImg.setOnClickListener(new View.OnClickListener() {
 
             @Override

@@ -21,7 +21,6 @@
     <string name="title_home">Home</string>
 
 
-
     <string name="loginURL">http://services.stashcity.com/Service.svc/ValidateUser</string>
     <string name="GetAllPostsURL">http://services.stashcity.com/Service.svc/GetAllRecentImages</string>
 </resources>
