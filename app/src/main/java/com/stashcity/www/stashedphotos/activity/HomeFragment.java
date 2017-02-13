@@ -65,7 +65,7 @@ public class HomeFragment extends Fragment {
 
         listView = (ListView) rootView.findViewById(R.id.listHomeFeed);
         feedItems = new ArrayList<>();
-        listAdapter = new FeedListAdapter(getActivity(), feedItems);
+        listAdapter = new FeedListAdapter(getActivity(), feedItems,getContext());
         listView.setAdapter(listAdapter);
 
 

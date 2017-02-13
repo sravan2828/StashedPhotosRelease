@@ -14,6 +14,9 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.support.v7.widget.AppCompatButton;
 import android.text.Html;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
@@ -33,13 +36,17 @@ public class FeedListAdapter extends BaseAdapter {
     private Activity activity;
     private LayoutInflater inflater;
     private List<FeedItem> feedItems;
+    private Context context;
     ImageLoader imageLoader = ApplicationController.getInstance().getImageLoader();
     VolleyNetworkCalls VNC;
 
-    public FeedListAdapter(Activity activity, List<FeedItem> feedItems) {
+    public FeedListAdapter(Activity activity, List<FeedItem> feedItems,Context context) {
         this.activity = activity;
         this.feedItems = feedItems;
+        this.context = context;
     }
+
+
 
     @Override
     public int getCount() {
@@ -57,7 +64,7 @@ public class FeedListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, final ViewGroup parent) {
 
         if (inflater == null)
             inflater = (LayoutInflater) activity
@@ -73,7 +80,7 @@ public class FeedListAdapter extends BaseAdapter {
                 .findViewById(R.id.timestamp);
         TextView statusMsg = (TextView) convertView
                 .findViewById(R.id.txtStatusMsg);
-        TextView url = (TextView) convertView.findViewById(R.id.txtUrl);
+        //TextView url = (TextView) convertView.findViewById(R.id.txtUrl);
         NetworkImageView profilePic = (NetworkImageView) convertView
                 .findViewById(R.id.profilePic);
         FeedImageView feedImageView = (FeedImageView) convertView
@@ -98,7 +105,7 @@ public class FeedListAdapter extends BaseAdapter {
             statusMsg.setVisibility(View.GONE);
         }
 
-        // Checking for null feed url
+       /* // Checking for null feed url
         if (item.getUrl() != null) {
             url.setText(Html.fromHtml("<a href=\"" + item.getUrl() + "\">"
                     + item.getUrl() + "</a> "));
@@ -109,7 +116,7 @@ public class FeedListAdapter extends BaseAdapter {
         } else {
             // url is null, remove from the view
             url.setVisibility(View.GONE);
-        }
+        }*/
 
         // user profile pic
         profilePic.setImageUrl(item.getProfilePic(), imageLoader);
@@ -132,7 +139,7 @@ public class FeedListAdapter extends BaseAdapter {
             feedImageView.setVisibility(View.GONE);
         }
 
-        ImageButton BtnImg = (ImageButton) convertView.findViewById(R.id.btnLike);
+      /*  ImageButton BtnImg = (ImageButton) convertView.findViewById(R.id.btnLike);
         BtnImg.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -142,8 +149,20 @@ public class FeedListAdapter extends BaseAdapter {
                 VNC.LikePost(item.getId());
 
             }
-        });
+        });*/
+        AppCompatButton shareBtn = (AppCompatButton) convertView.findViewById(R.id.shareBtn);
+        shareBtn.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, item.getUrl());
+                intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Check out this photo!");
+                context.startActivity(Intent.createChooser(intent, "Share"));
+
+            }
+        });
 
 
         return convertView;

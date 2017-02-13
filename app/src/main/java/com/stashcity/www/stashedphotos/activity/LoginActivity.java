@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -35,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText Email;
     EditText Password;
     User userobj;
+    TextView sigunup;
 
     Gson gson;
 
@@ -50,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         LoginButton= (Button)findViewById(R.id.btn_login);
         Email =(EditText)findViewById(R.id.input_email);
         Password = (EditText)findViewById(R.id.input_password);
+        sigunup=(TextView)findViewById(R.id.link_signup);
         userobj=new User();
         LoginButton.setOnClickListener(new View.OnClickListener() {
 
@@ -61,6 +64,14 @@ public class LoginActivity extends AppCompatActivity {
                 login(userobj);
 
 
+            }
+        });
+        sigunup.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
+                startActivity(intent);
             }
         });
 

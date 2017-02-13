@@ -60,7 +60,7 @@ public class MostViewedFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_most_viewed, container, false);
         listView = (ListView) rootView.findViewById(R.id.listMostViewed);
         feedItems = new ArrayList<>();
-        listAdapter = new FeedListAdapter(getActivity(), feedItems);
+        listAdapter = new FeedListAdapter(getActivity(), feedItems,getContext());
         listView.setAdapter(listAdapter);
 
         Cache cache = ApplicationController.getInstance().getRequestQueue().getCache();
