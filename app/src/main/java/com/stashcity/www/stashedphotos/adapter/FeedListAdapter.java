@@ -16,6 +16,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.widget.AppCompatButton;
 import android.text.Html;
 import android.text.TextUtils;
@@ -28,6 +29,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
@@ -37,6 +39,7 @@ public class FeedListAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private List<FeedItem> feedItems;
     private Context context;
+    private static final String VIDEO_PATH = "https://inducesmile.com/wp-content/uploads/2016/05/small.mp4";
     ImageLoader imageLoader = ApplicationController.getInstance().getImageLoader();
     VolleyNetworkCalls VNC;
 
@@ -85,6 +88,7 @@ public class FeedListAdapter extends BaseAdapter {
                 .findViewById(R.id.profilePic);
         FeedImageView feedImageView = (FeedImageView) convertView
                 .findViewById(R.id.feedImage1);
+         VideoView feedVideoView = (VideoView)convertView.findViewById(R.id.feedVideo);
 
         final FeedItem item = feedItems.get(position);
 
@@ -121,9 +125,16 @@ public class FeedListAdapter extends BaseAdapter {
         // user profile pic
         profilePic.setImageUrl(item.getProfilePic(), imageLoader);
 
+        if (item.getImage().endsWith("mp4")){
+            feedImageView.setVisibility(View.GONE);
+            feedVideoView.setVisibility(View.VISIBLE);
+            feedVideoView.setVideoPath(VIDEO_PATH);
+            feedVideoView.start();
+            Log.e("came here ","to show video");
+        }
         // Feed image
-        if (item.getImge() != null) {
-            feedImageView.setImageUrl(item.getImge(), imageLoader);
+        else if (item.getImage() != null) {
+            feedImageView.setImageUrl(item.getImage(), imageLoader);
             feedImageView.setVisibility(View.VISIBLE);
             feedImageView
                     .setResponseObserver(new FeedImageView.ResponseObserver() {
@@ -161,6 +172,13 @@ public class FeedListAdapter extends BaseAdapter {
                 intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Check out this photo!");
                 context.startActivity(Intent.createChooser(intent, "Share"));
 
+            }
+        });
+
+        feedVideoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //feedVideoView.start();
             }
         });
 
